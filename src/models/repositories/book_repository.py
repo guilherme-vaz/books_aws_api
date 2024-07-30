@@ -26,7 +26,7 @@ class Book:
         )
         self.__conn.commit()
     
-    def find_book(self, book_id: str) -> List[Tuple]:
+    def find_book(self, book_id: str) -> Dict:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
