@@ -1,4 +1,5 @@
 from typing import Dict
+import json
 
 class BookFinder:
     def __init__(self, books_repository) -> None:
@@ -6,24 +7,17 @@ class BookFinder:
         
     def find_book(self, bookId) -> Dict:
         try:
-            book = self.__books_repository.find__book(bookId)
+            response = self.__books_repository.find__book(bookId)
+            book = response.get('Item', {})
+            
             if not book: raise Exception("No book found")
             return {
-                "body": {
-                    "book": {
-                        "id": book[0],
-                        "title": book[1],
-                        "author": book[2],
-                        "genre": book[3],
-                        "publication_year": book[4],
-                        "rating": book[5],
-                        "registry_date": book[6],
-                    }
-                }, "status_code": 200
+                "body": json.dumps(book),
+                "status_code": 200
             }
             
         except Exception as exception:
             return {
-                "body": { "error": "Bad request", "message": str(exception) },
+                "body": json.dumps({ "error": "Bad request", "message": str(exception)}),
                 "status_code": 400
             }

@@ -11,19 +11,19 @@ class GetAllBooks:
             
             for book in books:
                 formatted_books.append({
-                        "id": book[0],
-                        "title": book[1],
-                        "author": book[2],
-                        "genre": book[3],
-                        "publication_year": book[4],
-                        "rating": book[5],
-                        "registry_date": book[6],
+                    "id": book.get("id"),
+                    "title": book.get("title"),
+                    "author": book.get("author"),
+                    "genre": book.get("genre"),
+                    "publication_year": book.get("publication_year"),
+                    "rating": book.get("rating"),
+                    "registry_date": book.get("registry_date"),
                 })
                 
-                return {
-                    "body": { "books": formatted_books },
-                    "status_code": 200
-                }
+            return {
+                "body": { "books": formatted_books },
+                "status_code": 200
+            }
                 
         except Exception as exception:
             return {
